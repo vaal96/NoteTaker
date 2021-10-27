@@ -1,8 +1,13 @@
 const fs = require("fs");
 const util = require("util");
+const path = require("path");
 
+const DB_DIR = path.resolve(__dirname, "../db");
 // Promise version of fs.readFile
-const readFromFile = util.promisify(fs.readFile);
+const readFromFile = () => {
+  const notes = fs.readFileSync(path.join(DB_DIR, "db.json"), "utf8")
+  return JSON.parse(notes)
+}
 /**
  *  Function to write data to the JSON file given a destination and some content
  *  @param {string} destination The file you want to write to.
